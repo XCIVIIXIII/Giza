@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Setup script per Notary Recovery
+Setup script per Guesss
 Calcola hash e genera comandi di deploy usando starkli
 """
 
@@ -46,11 +46,11 @@ def starkli_pedersen(a: str, b: str) -> str:
 
 USERNAME = "alice"
 ANSWERS = [
-    "Denis Guedj",
+    "Denis",
     "2012",
     "Finney"
 ]
-SONG_DURATION = 218  # secondi (Pyramids)
+SONG_DURATION = 593  # secondi (Pyramids)
 
 # Master key da proteggere (esempio)
 MASTER_KEY = "0x1234567890abcdef"  # Sostituisci con la tua chiave

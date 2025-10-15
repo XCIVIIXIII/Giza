@@ -9,7 +9,7 @@
     font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #87CEEB 0%, #F4A460 100%);
+    background: linear-gradient(135deg, #87CEEB 0%, #f7931a 100%);
     min-height: 100vh;
   }
   
@@ -38,7 +38,7 @@
   .hero h1 {
     font-size: 2.5em;
     margin: 20px 0;
-    color: #D2691E;
+    color: #f7931a;
   }
   
   .hero p {
@@ -127,7 +127,7 @@
   button {
     padding: 15px 30px;
     font-size: 18px;
-    background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
+    background: linear-gradient(135deg, #f7931a 0%, #CD853F 100%);
     color: white;
     border: none;
     border-radius: 8px;
@@ -146,6 +146,18 @@
     background: #ccc;
     cursor: not-allowed;
   }
+  
+  .guardian-option {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 2px solid #ddd;
+    text-align: center;
+  }
+  
+  .guardian-option button {
+    background: linear-gradient(135deg, #6B8E23 0%, #556B2F 100%);
+    margin-top: 0;
+  }
 </style>
 </head>
 <body>
@@ -153,7 +165,7 @@
 <div class="container">
   <div class="hero">
     <img src="img/k.jpg" alt="Ancient Egyptian God">
-    <h1>Lost in the sands of time?</h1>
+    <h1>Lost in the sands of Time?</h1>
     <p>Answer the questions before the song of the pharaohs ends...</p>
     
     <div class="hints">
@@ -161,7 +173,7 @@
         <div class="hint-card">
           <img src="img/p.jpg" alt="Hint 1" />
           <p><strong>Hint 1:</strong> The Scholar</p>
-          <p style="font-size: 0.8em; color: #999;">Click for wisdom</p>
+          <p style="font-size: 0.8em; color: #999;">Click for wisdom 𓊿</p>
         </div>
       </a>
       
@@ -179,7 +191,7 @@
     <h2 style="text-align: center; color: #D2691E;">📜 Answer the Sacred Questions</h2>
     
     <div class="timer">
-      ⏰ Time remaining: <span id="timer">5:17</span>
+      ⏰ Time remaining: <span id="timer">9:53</span>
     </div>
     
     <audio id="audio" controls autoplay>
@@ -202,11 +214,24 @@
     </div>
     
     <button id="submitBtn" onclick="submitAnswers()">Submit Answers</button>
+    
+    <!-- Guardian Recovery Option -->
+    <div class="guardian-option">
+      <p style="font-size: 1.16em; color: #666; margin-bottom: 15px;">
+        Don't remember the answers? 
+      </p>
+      <button onclick="window.location.href='guardians.html'">
+         Ask Your Guardians 𓂡
+      </button>
+      <p style="font-size: 0.8em; color: #999; margin-top: 10px;">
+        Use Shamir 2-of-3 social recovery
+      </p>
+    </div>
   </div>
 </div>
 
 <script>
-const SONG_DURATION = 317;
+const SONG_DURATION = 593; // 9:53 in seconds
 let startTime = Date.now();
 
 // Timer

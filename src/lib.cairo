@@ -1,3 +1,7 @@
+mod guardian_recovery;
+
+
+
 #[starknet::contract]
 mod NotaryRecovery {
     use starknet::get_block_timestamp;
@@ -75,7 +79,7 @@ mod NotaryRecovery {
         answer_hash_2: felt252,
         answer_hash_3: felt252,
         encrypted_key: felt252,
-        song_duration: u64,  // in secondi (es. 218 per Pyramids)
+        song_duration: u64,  // time in seconds
     ) {
         self.username_hash.write(username_hash);
         self.answer_hash_1.write(answer_hash_1);
@@ -274,7 +278,7 @@ trait INotaryRecovery<TContractState> {
 //   <answer_hash_2> \
 //   <answer_hash_3> \
 //   <encrypted_key> \
-//   218  // song duration (Pyramids = 218 secondi)
+// song duration (Pyramids = 593 secondi)
 
 // Flow:
 // 1. User: start_recovery(username_hash)
