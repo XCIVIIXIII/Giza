@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>𓁾 Recovery Result</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #87CEEB 0%, #F4A460 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .container {
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 60px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  
+  .success {
+    color: #155724;
+  }
+  
+  .error {
+    color: #721c24;
+  }
+  
+  .icon {
+    font-size: 5em;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-size: 2.5em;
+    margin: 20px 0;
+  }
+  
+  p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 15px 0;
+  }
+  
+  .key-info {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 30px 0;
+    font-family: monospace;
+    font-size: 0.9em;
+    word-break: break-all;
+  }
+  
+  button {
+    padding: 15px 40px;
+    font-size: 18px;
+    background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="result">
+  <!-- Content loaded by JS -->
+</div>
+
+<script>
+// Get results from sessionStorage
+const username = sessionStorage.getItem('username') || 'Unknown';
+const correctCount = parseInt(sessionStorage.getItem('correctCount') || '0');
+
+const resultDiv = document.getElementById('result');
+
+if (correctCount === 3) {
+  // SUCCESS!
+  resultDiv.innerHTML = `
+    <div class="success">
+      <div class="icon">𓅪</div>
+      <h1>The gods have spoken!</h1>
+      <p style="font-size: 1.3em; font-weight: bold;">Recovery Successful!</p>
+      <p>Your sacred key has been recovered from the ancient sands.</p>
+      
+      <div class="key-info">
+        <strong>Username:</strong> ${username}<br><br>
+        <strong>Status:</strong> All 3 answers correct ✅<br><br>
+        <strong>Key Status:</strong> RECOVERED 🔑
+      </div>
+      
+      <p style="font-size: 0.9em; color: #666; margin-top: 30px;">
+        In production, this would:<br>
+        1. Call the smart contract on Starknet<br>
+        2. Verify your answers using Cairo ZK proofs<br>
+        3. Return your encrypted key<br>
+        4. Decrypt the key locally
+      </p>
+      
+      <button onclick="window.location.href='index.html'">Start New Recovery</button>
+    </div>
+  `;
+} else {
+  // FAILED
+  resultDiv.innerHTML = `
+    <div class="error">
+      <div class="icon">❌𓀡❌</div>
+      <h1>Recovery Failed</h1>
+      <p style="font-size: 1.2em;">Only ${correctCount}/3 correct answers</p>
+      <p>The ancient guardians require all 3 correct answers to recover your key.</p>
+      
+      <div class="key-info">
+        <strong>Username:</strong> ${username}<br><br>
+        <strong>Score:</strong> ${correctCount}/3<br><br>
+        <strong>Status:</strong> FAILED ❌
+      </div>
+      
+      <p>Consult the hints and try again!</p>
+      
+      <button onclick="window.location.href='index.html'">Try Again</button>
+    </div>
+  `;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guardian Recovery</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #87CEEB 0%, #f7931a 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .hero {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  }
+  
+  .hero img {
+    max-width: 200px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+  }
+  
+  .hero h1 {
+    font-size: 2.5em;
+    margin: 20px 0;
+    color: #f7931a;
+  }
+  
+  .hero p {
+    font-size: 1.6em;
+    color: #666;
+    margin: 10px 0;
+  }
+  
+  .progress-section {
+    text-align: center;
+    margin: 30px 0;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 40px;
+    background: #e0e0e0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #D2691E, #F7931A);
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+  
+  .progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+    z-index: 10;
+  }
+  
+  .guardians-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+  }
+  
+  .guardian-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .guardian-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  }
+  
+  .guardian-card.approved {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border: 3px solid #58f37c;
+  }
+  
+  .guardian-icon {
+    font-size: 34px;
+    margin-bottom: 15px;
+  }
+  
+  .guardian-name {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  .guardian-status {
+    font-size: 0.9em;
+    color: #666;
+    margin: 10px 0;
+  }
+  
+  .approve-btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: transform 0.2s;
+    width: 100%;
+  }
+  
+  .approve-btn:hover {
+    transform: translateY(-2px);
+  }
+  
+  .approve-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .success-section {
+    display: none;
+    text-align: center;
+    padding: 50px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  }
+  
+  .success-section.show {
+    display: block;
+  }
+  
+  .success-icon {
+    font-size: 5em;
+    margin-bottom: 20px;
+  }
+  
+  .key-info {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 30px 0;
+    font-family: monospace;
+    font-size: 0.9em;
+  }
+  
+  .back-btn {
+    padding: 15px 40px;
+    font-size: 18px;
+    background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .shamir-explanation {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 30px 0;
+    text-align: left;
+  }
+  
+  .shamir-explanation h3 {
+    color: #856404;
+    margin-top: 0;
+  }
+  
+  .shamir-explanation code {
+    background: #f8f9fa;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: monospace;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="hero">
+    <img src="img/a.svg" alt="Anubis Guardian" onerror="this.style.display='none'" />
+    <h1>Ask Your Guardians</h1>
+    <p>The ancient protectors hold pieces of your key 𓋹</p>
+    <p style="font-size: 0.9em; color: #999;">2 out of 3 approvals needed</p>
+  </div>
+  
+  
+  <div class="progress-section">
+    <h2 style="color: #f7931a;">Guardian Approval Progress</h2>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressBar"></div>
+      <div class="progress-text" id="progressBarText">0/3</div>
+    </div>
+    <p id="progressText">Waiting for guardians to approve...</p>
+  </div>
+  
+  <div class="guardians-grid" id="guardiansGrid">
+    <div class="guardian-card" id="guardian1">
+      <div class="guardian-icon">𓁖</div>
+      <div class="guardian-name">MUM</div>
+      <div class="guardian-status">Status: Waiting</div>
+      <div style="font-size: 3.14em; color: #999; margin: 10px 0;">
+        Share: (1, 49)
+      </div>
+      <button class="approve-btn" onclick="approveGuardian(1)">Approve Recovery</button>
+    </div>
+    
+    <div class="guardian-card" id="guardian2">
+      <div class="guardian-icon">𓀪</div>
+      <div class="guardian-name">BESTIE</div>
+      <div class="guardian-status">Status: Waiting</div>
+      <div style="font-size: 3.14em; color: #999; margin: 10px 0;">
+        Share: (2, 56)
+      </div>
+      <button class="approve-btn" onclick="approveGuardian(2)">Approve Recovery</button>
+    </div>
+    
+    <div class="guardian-card" id="guardian3">
+      <div class="guardian-icon">𓂹</div>
+      <div class="guardian-name">MY BOY</div>
+      <div class="guardian-status">Status: Waiting</div>
+      <div style="font-size: 3.14em; color: #999; margin: 10px 0;">
+        Share: (3, 63)
+      </div>
+      <button class="approve-btn" onclick="approveGuardian(3)">Approve Recovery</button>
+    </div>
+  </div>
+  
+  <div class="success-section" id="successSection">
+    <div class="success-icon"> 𓅪 </div>
+    <h1 style="color: #28a745;">Recovery Successful!</h1>
+    <p style="font-size: 5em;">2 out of 3 guardians have approved your recovery</p>
+    
+    <div class="key-info">
+      <strong>Secret Reconstructed:</strong> 42<br><br>
+      <strong>Method:</strong> Shamir 2-of-3<br><br>
+      <strong>Polynomial:</strong> P(x) = 42 + 7x<br><br>
+      <strong>Used Shares:</strong> <span id="usedShares"></span><br><br>
+      <strong>Key Status:</strong> 𓋹 RECOVERED 
+    </div>
+
+
+  <div class="shamir-explanation">
+    <h3>📜 How Shamir Secret Sharing Works</h3>
+    <p>Your key has been split into 3 shares using a polynomial: <code>P(x) = 42 + 7x</code></p>
+    <ul>
+      <li><strong>MUM:</strong> holds share (1, 49)</li>
+      <li><strong>BESTIE:</strong> holds share (2, 56)</li>
+      <li><strong>MY BOY:</strong> holds share (3, 63)</li>
+    </ul>
+    <p><strong>Important:</strong> Any 2 guardians can reconstruct your key using Lagrange interpolation. One share alone is useless! This is the magic of Shamir. 🔮</p>
+  </div>
+    
+    <p style="font-size: 0.9em; color: #666; margin-top: 30px;">
+      In production, this would:<br>
+      1. Call the GuardianRecovery smart contract on Starknet<br>
+      2. Verify 2/3 guardians approved<br>
+      3. Reconstruct secret using Lagrange interpolation<br>
+      4. Return your encrypted key<br>
+      5. Decrypt locally to recover your private key
+    </p>
+    
+    <a href="index.html" class="back-btn">Start New Recovery</a>
+  </div>
+</div>
+
+<script>
+let approvals = {
+  guardian1: false,
+  guardian2: false,
+  guardian3: false
+};
+
+const guardianNames = {
+  1: 'MUM (1,49)',
+  2: 'BESTIE (2,56)',
+  3: 'MY BOY (3,63)'
+};
+
+function approveGuardian(num) {
+  const guardianId = `guardian${num}`;
+  
+  if (approvals[guardianId]) {
+    alert('This guardian already approved!');
+    return;
+  }
+  
+  // Mark as approved
+  approvals[guardianId] = true;
+  
+  // Update UI
+  const card = document.getElementById(guardianId);
+  card.classList.add('approved');
+  card.querySelector('.guardian-status').textContent = 'Status: ✅ Approved';
+  card.querySelector('.approve-btn').disabled = true;
+  card.querySelector('.approve-btn').textContent = 'Approved';
+  
+  // Update progress
+  updateProgress();
+}
+
+function updateProgress() {
+  const count = Object.values(approvals).filter(v => v).length;
+  const progressBar = document.getElementById('progressBar');
+  const progressBarText = document.getElementById('progressBarText');
+  const progressText = document.getElementById('progressText');
+  
+  const percentage = (count / 3) * 100;
+  progressBar.style.width = percentage + '%';
+  progressBarText.textContent = `${count}/3`;
+  
+  if (count === 0) {
+    progressText.textContent = 'Waiting for guardians to approve...';
+  } else if (count === 1) {
+    progressText.textContent = '1 guardian approved. Need 1 more! 🔓';
+  } else if (count >= 2) {
+    progressText.textContent = '✅ 2/3 threshold reached! Recovery successful!';
+    showSuccess();
+  }
+}
+
+function showSuccess() {
+  // Get which guardians approved
+  const approved = [];
+  if (approvals.guardian1) approved.push(guardianNames[1]);
+  if (approvals.guardian2) approved.push(guardianNames[2]);
+  if (approvals.guardian3) approved.push(guardianNames[3]);
+  
+  document.getElementById('usedShares').textContent = approved.slice(0, 2).join(' + ');
+  
+  // Hide guardians, show success
+  document.getElementById('guardiansGrid').style.display = 'none';
+  document.querySelector('.progress-section').style.display = 'none';
+  document.querySelector('.shamir-explanation').style.display = 'none';
+  document.getElementById('successSection').classList.add('show');
+}
+
+// Initialize progress
+updateProgress();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>𓁾 Recovery Ritual</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #87CEEB 0%, #f7931a 100%);
+    min-height: 100vh;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  
+  .hero {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  }
+  
+  .hero img {
+    max-width: 300px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+  }
+  
+  .hero h1 {
+    font-size: 2.5em;
+    margin: 20px 0;
+    color: #f7931a;
+  }
+  
+  .hero p {
+    font-size: 1.2em;
+    color: #666;
+  }
+  
+  .hints {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .hint-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: transform 0.3s;
+    cursor: pointer;
+    max-width: 200px;
+  }
+  
+  .hint-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .hint-card img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .quiz-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  }
+  
+  .timer {
+    font-size: 28px;
+    font-weight: bold;
+    color: #cc0000;
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  audio {
+    width: 100%;
+    margin: 20px 0;
+  }
+  
+  .q {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .q label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  input[type="text"] {
+    padding: 12px;
+    width: 100%;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  
+  input[type="text"]:focus {
+    border-color: #D2691E;
+    outline: none;
+  }
+  
+  button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background: linear-gradient(135deg, #f7931a 0%, #CD853F 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(210, 105, 30, 0.3);
+  }
+  
+  button:hover {
+    transform: translateY(-2px);
+  }
+  
+  button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .guardian-option {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 2px solid #ddd;
+    text-align: center;
+  }
+  
+  .guardian-option button {
+    background: linear-gradient(135deg, #6B8E23 0%, #556B2F 100%);
+    margin-top: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="hero">
+    <img src="img/k.jpg" alt="Ancient Egyptian God">
+    <h1>Lost in the sands of Time?</h1>
+    <p>Answer the questions before the song of the pharaohs ends...</p>
+    
+    <div class="hints">
+      <a href="https://fr.wikipedia.org/wiki/Denis_Guedj" target="_blank" style="text-decoration: none;">
+        <div class="hint-card">
+          <img src="img/p.jpg" alt="Hint 1" />
+          <p><strong>Hint 1:</strong> The Scholar</p>
+          <p style="font-size: 0.8em; color: #999;">Click for wisdom 𓊿</p>
+        </div>
+      </a>
+      
+      <a href="https://en.wikipedia.org/wiki/Channel_Orange" target="_blank" style="text-decoration: none;">
+        <div class="hint-card">
+          <img src="img/s-l1200.jpg" alt="Hint 2" />
+          <p><strong>Hint 2:</strong> The Song</p>
+          <p style="font-size: 0.8em; color: #999;">Click for 🔦</p>
+        </div>
+      </a>
+    </div>
+  </div>
+  
+  <div class="quiz-section">
+    <h2 style="text-align: center; color: #D2691E;">📜 Answer the Sacred Questions</h2>
+    
+    <div class="timer">
+      ⏰ Time remaining: <span id="timer">9:53</span>
+    </div>
+    
+    <audio id="audio" controls autoplay>
+      <source src="pyramids.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="q">
+      <label>1. What is the first name of the author of "The Parrot's Theorem"?</label>
+      <input type="text" id="answer1" placeholder="First name..." style="text-transform: lowercase;" />
+    </div>
+    
+    <div class="q">
+      <label>2. When was the album of this song released?</label>
+      <input type="text" id="answer2" placeholder="Year..." style="text-transform: lowercase;" />
+    </div>
+    
+    <div class="q">
+      <label>3. What is the second name of the first Bitcoin transaction recipient?</label>
+      <input type="text" id="answer3" placeholder="Last name..." style="text-transform: lowercase;" />
+    </div>
+    
+    <button id="submitBtn" onclick="submitAnswers()">Submit Answers</button>
+    
+    <!-- Guardian Recovery Option -->
+    <div class="guardian-option">
+      <p style="font-size: 1.16em; color: #666; margin-bottom: 15px;">
+        Don't remember the answers? 
+      </p>
+      <button onclick="window.location.href='guardians.html'">
+         Ask Your Guardians 𓂡
+      </button>
+      <p style="font-size: 0.8em; color: #999; margin-top: 10px;">
+        Use Shamir 2-of-3 social recovery
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+const SONG_DURATION = 593; // 9:53 in seconds
+let startTime = Date.now();
+
+// Timer
+setInterval(() => {
+  const elapsed = Math.floor((Date.now() - startTime) / 1000);
+  const remaining = Math.max(0, SONG_DURATION - elapsed);
+  
+  const minutes = Math.floor(remaining / 60);
+  const seconds = remaining % 60;
+  document.getElementById('timer').textContent = 
+    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  
+  if (remaining === 0) {
+    document.getElementById('submitBtn').disabled = true;
+    alert('⏰ Time expired! Song ended.');
+  }
+}, 1000);
+
+async function submitAnswers() {
+  const answer1 = document.getElementById('answer1').value.toLowerCase().trim();
+  const answer2 = document.getElementById('answer2').value.toLowerCase().trim();
+  const answer3 = document.getElementById('answer3').value.toLowerCase().trim();
+  
+  if (!answer1 || !answer2 || !answer3) {
+    alert('Please answer all questions');
+    return;
+  }
+  
+  const correctAnswers = ['denis', '2012', 'finney'];
+  let correct = 0;
+  
+  if (answer1 === correctAnswers[0]) correct++;
+  if (answer2 === correctAnswers[1]) correct++;
+  if (answer3 === correctAnswers[2]) correct++;
+  
+  // Save results
+  sessionStorage.setItem('correctCount', correct);
+  sessionStorage.setItem('answer1', answer1);
+  sessionStorage.setItem('answer2', answer2);
+  sessionStorage.setItem('answer3', answer3);
+  
+  // Go to result page
+  window.location.href = 'success.html';
+}
+</script>
+
+</body>
+</html>

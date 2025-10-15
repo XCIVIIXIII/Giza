@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>𓁾</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #87CEEB 0%, #F4A460 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .container {
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 60px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  
+  .hieroglyph {
+    font-size: 5em;
+    color: #f7931a;
+    display: block;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-size: 2em;
+    margin: 20px 0;
+    color: #F7931A;
+  }
+  
+  p {
+    font-size: 1.1em;
+    color: #666;
+    margin: 15px 0;
+  }
+  
+  input[type="text"] {
+    padding: 15px;
+    margin: 30px 0 20px 0;
+    width: 100%;
+    font-size: 18px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  
+  input[type="text"]:focus {
+    border-color: #F7931A
+;
+    outline: none;
+  }
+  
+  button {
+    padding: 15px 40px;
+    font-size: 20px;
+    background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s;
+    box-shadow: 0 4px 15px rgba(210, 105, 30, 0.3);
+    width: 100%;
+  }
+  
+  button:hover {
+    transform: translateY(-2px);
+  }
+  
+  .error {
+    color: #cc0000;
+    margin-top: 15px;
+    font-size: 0.9em;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <span class="hieroglyph">𓁾</span>
+  <h1>Enter Your Sacred Name</h1>
+  <p>Speak your name to begin the recovery ritual</p>
+  
+  <input type="text" id="usernameInput" placeholder="Your username..." />
+  <button onclick="goToRecovery()">Continue</button>
+  
+  <div id="error" class="error"></div>
+</div>
+
+<script>
+function goToRecovery() {
+  const username = document.getElementById('usernameInput').value.trim();
+  
+  if (!username) {
+    document.getElementById('error').textContent = 'Please enter your username';
+    return;
+  }
+  
+  // Save username in sessionStorage
+  sessionStorage.setItem('username', username);
+  
+  // Go to recovery page
+  window.location.href = 'recovery.html';
+}
+
+// Allow Enter key
+document.getElementById('usernameInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    goToRecovery();
+  }
+});
+</script>
+
+</body>
+</html>
